@@ -1,1 +1,0 @@
-CuCcBurgerEditor works.
