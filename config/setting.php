@@ -12,8 +12,6 @@
 return [
     /**
      * カスタムコンテンツ設定
-     *
-     * - `fieldTypes`: カスタムフィールドのタイプの設定、プラグインごとに１つ定義でき、キーはプラグイン名と同じにする
      */
     'BcCustomContent' => [
         'fieldTypes' => [
@@ -24,6 +22,7 @@ return [
                 'controlType' => 'text',
                 'showHeading' => false,
                 'onlyOneOnTable' => true,
+                'preview' => false
             ]
         ]
     ]

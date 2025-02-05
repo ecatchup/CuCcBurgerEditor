@@ -22,11 +22,6 @@ class CuCcBurgerEditorHelper extends Helper
 {
 
     /**
-     * Trait
-     */
-    use BcContainerTrait;
-
-    /**
      * helpers
      *
      * @var array
@@ -45,18 +40,15 @@ class CuCcBurgerEditorHelper extends Helper
      */
     public function control($field): string
     {
-
         return $this->BcAdminForm->editor($field->name, [
             'type' => 'editor',
             'editor' => "BurgerEditor.BurgerEditor",
-//            'editorUseDraft' => $field->custom_field->meta['CuCcBurgerEditor']['editor_use_draft'],
-            'editorUseDraft' => false,
-            'editorDraftField' => 'detail_draft',
+            'editorUseDraft' => $field->custom_field->meta['CuCcBurgerEditor']['editor_use_draft'],
+            'editorDraftField' => $field->custom_field->meta['CuCcBurgerEditor']['editor_draft_field'],
             'editorWidth' => 'auto',
             'editorHeight' => '480px',
             'editorEnterBr' => 0,
         ]);
-
     }
 
 }
