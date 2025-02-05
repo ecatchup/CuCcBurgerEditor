@@ -38,13 +38,16 @@ class CuCcBurgerEditorHelper extends Helper
      * @param array $options
      * @return string
      */
-    public function control($field): string
+    public function control($field, array $options): string
     {
+        if(!empty($options['preview'])) return '';
         return $this->BcAdminForm->editor($field->name, [
             'type' => 'editor',
             'editor' => "BurgerEditor.BurgerEditor",
-            'editorUseDraft' => $field->custom_field->meta['CuCcBurgerEditor']['editor_use_draft'],
-            'editorDraftField' => $field->custom_field->meta['CuCcBurgerEditor']['editor_draft_field'],
+//            'editorUseDraft' => $field->custom_field->meta['CuCcBurgerEditor']['editor_use_draft'],
+//            'editorDraftField' => $field->custom_field->meta['CuCcBurgerEditor']['editor_draft_field'],
+            'editorUseDraft' => false,
+            'editorDraftField' => 'detail_draft',
             'editorWidth' => 'auto',
             'editorHeight' => '480px',
             'editorEnterBr' => 0,
