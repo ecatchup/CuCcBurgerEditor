@@ -1,92 +1,62 @@
 <?php
+/**
+ * baserCMS :  Based Website Development Project <https://basercms.net>
+ * Copyright (c) NPO baser foundation <https://baserfoundation.org/>
+ *
+ * @copyright     Copyright (c) NPO baser foundation
+ * @link          https://basercms.net baserCMS Project
+ * @since         5.0.0
+ * @license       https://basercms.net/license/index.html MIT License
+ */
 
-namespace CuCcBurgerEditor\View\Helper;
+ namespace CuCcBurgerEditor\View\Helper;
 
-use BaserCore\Utility\BcSiteConfig;
-use BaserCore\View\Helper\BcAdminFormHelper;
-use BcCustomContent\Model\Entity\CustomField;
-use BcCustomContent\Model\Entity\CustomLink;
+use BaserCore\Utility\BcContainerTrait;
 use Cake\View\Helper;
 
 /**
  * Class CuCcBurgerEditorHelper
- *
- * @property BcAdminFormHelper $BcAdminForm
  */
 #[\AllowDynamicProperties]
 class CuCcBurgerEditorHelper extends Helper
 {
 
     /**
-     * Helper
-     * @var string[]
+     * Trait
      */
-    public array $helpers = [
-        'BaserCore.BcAdminForm' => ['templates' => 'BaserCore.bc_form']
+    use BcContainerTrait;
+
+    /**
+     * helpers
+     *
+     * @var array
+     */
+
+    protected array $helpers = [
+        'BaserCore.BcAdminForm'
     ];
 
     /**
      * control
      *
      * @param string $fieldName
-     * @param CustomField $field
      * @param array $options
      * @return string
      */
-    public function control(CustomLink $link, array $options = []): string
+    public function control($field): string
     {
-        $field = $link->custom_field;
-        if(empty($field->meta['BcCcWysiwyg'])) return '';
-        $options = array_merge([
-			'editor' => 'BurgerEditor.BurgerEditor',
-			'editorDraftField' => 'draft',
-		], $options);
-		return $this->BcAdminForm->editor($link->name, $options);
-    }
 
-    /**
-     * プレビュー
-     *
-     * @param CustomLink $link
-     * @return string
-     */
-//    public function preview(CustomLink $link)
-//    {
-//        $link->name = 'wysiwyg';
-//        $this->BcAdminForm->unlockField($link->name);
-//        $options = [
-//            'value' => $link->custom_field->default_value,
-//        ];
-//        return $this->control($link, $options) . '<br>※ Wysiwyg エディタはリアルタイムでのプレビューは未対応です。保存してから確認してください。';
-//    }
+        return $this->BcAdminForm->editor($field->name, [
+            'type' => 'editor',
+            'editor' => "BurgerEditor.BurgerEditor",
+//            'editorUseDraft' => $field->custom_field->meta['CuCcBurgerEditor']['editor_use_draft'],
+            'editorUseDraft' => false,
+            'editorDraftField' => 'detail_draft',
+            'editorWidth' => 'auto',
+            'editorHeight' => '480px',
+            'editorEnterBr' => 0,
+        ]);
 
-    /**
-     * Search Control
-     *
-     * @param string $fieldName
-     * @param CustomField $field
-     * @param array $options
-     * @return string
-     */
-    public function searchControl(CustomLink $link, array $options = []): string
-    {
-        $options = array_merge([
-            'type' => 'text'
-        ], $options);
-        return $this->BcAdminForm->control($link->name, $options);
-    }
-
-    /**
-     * Get
-     *
-     * @param mixed $fieldValue
-     * @param CustomLink $link
-     * @param array $options
-     * @return mixed
-     */
-    public function get($fieldValue, CustomLink $link, array $options = [])
-    {
-        return $fieldValue;
     }
 
 }
