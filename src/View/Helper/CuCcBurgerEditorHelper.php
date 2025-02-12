@@ -12,6 +12,7 @@
  namespace CuCcBurgerEditor\View\Helper;
 
 use BaserCore\Utility\BcContainerTrait;
+use BcCustomContent\Model\Entity\CustomLink;
 use Cake\View\Helper;
 
 /**
@@ -52,6 +53,11 @@ class CuCcBurgerEditorHelper extends Helper
             'editorHeight' => '480px',
             'editorEnterBr' => 0,
         ]);
+    }
+
+    public function get($fieldValue, CustomLink $link, array $options = []): string
+    {
+        return $fieldValue;
     }
 
 }
