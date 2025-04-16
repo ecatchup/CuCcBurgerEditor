@@ -45,9 +45,8 @@ class CuCcBurgerEditorHelper extends Helper
         return $this->BcAdminForm->editor($field->name, [
             'type' => 'editor',
             'editor' => "BurgerEditor.BurgerEditor",
-//            'editorUseDraft' => $field->custom_field->meta['CuCcBurgerEditor']['editor_use_draft'],
-//            'editorDraftField' => $field->custom_field->meta['CuCcBurgerEditor']['editor_draft_field'],
-            'editorUseDraft' => false,
+            'editorUseDraft' => $field->custom_field->meta['CuCcBurgerEditor']['editor_use_draft'],
+            // 'editorDraftField' => $field->custom_field->meta['CuCcBurgerEditor']['editor_draft_field'],
             'editorDraftField' => 'detail_draft',
             'editorWidth' => 'auto',
             'editorHeight' => '480px',
