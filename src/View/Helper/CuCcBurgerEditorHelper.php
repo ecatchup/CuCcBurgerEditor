@@ -9,9 +9,8 @@
  * @license       https://basercms.net/license/index.html MIT License
  */
 
- namespace CuCcBurgerEditor\View\Helper;
+namespace CuCcBurgerEditor\View\Helper;
 
-use BaserCore\Utility\BcContainerTrait;
 use BcCustomContent\Model\Entity\CustomLink;
 use Cake\View\Helper;
 
@@ -46,8 +45,7 @@ class CuCcBurgerEditorHelper extends Helper
             'type' => 'editor',
             'editor' => "BurgerEditor.BurgerEditor",
             'editorUseDraft' => $field->custom_field->meta['CuCcBurgerEditor']['editor_use_draft'],
-            // 'editorDraftField' => $field->custom_field->meta['CuCcBurgerEditor']['editor_draft_field'],
-            'editorDraftField' => 'detail_draft',
+            'editorDraftField' => $field->custom_field->meta['CuCcBurgerEditor']['editor_draft_field'],
             'editorWidth' => 'auto',
             'editorHeight' => '480px',
             'editorEnterBr' => 0,
