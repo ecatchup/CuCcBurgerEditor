@@ -43,7 +43,7 @@ class CuCcBurgerEditorControllerEventListener extends BcControllerEventListener
         $targetColumns = Configure::read('Bge.targetColumns');
         foreach($customFields as $customField) {
             if(!empty($customField->meta['CuCcBurgerEditor']['editor_use_draft'])) {
-                $targetColumns[] = $customField->meta['CuCcBurgerEditor']['editor_draft_field'];
+                $targetColumns[] = $customField->name . '_draft';
             }
         }
         Configure::write('Bge.targetColumns', $targetColumns);

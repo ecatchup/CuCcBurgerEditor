@@ -45,7 +45,7 @@ class CuCcBurgerEditorHelper extends Helper
             'type' => 'editor',
             'editor' => "BurgerEditor.BurgerEditor",
             'editorUseDraft' => $field->custom_field->meta['CuCcBurgerEditor']['editor_use_draft'],
-            'editorDraftField' => $field->custom_field->meta['CuCcBurgerEditor']['editor_draft_field'],
+            'editorDraftField' => $field->name . '_draft',
             'editorWidth' => 'auto',
             'editorHeight' => '480px',
             'editorEnterBr' => 0,

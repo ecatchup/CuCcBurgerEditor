@@ -25,14 +25,10 @@
       true => __d('baser_core', '下書きを利用する'),
       false => __d('baser_core', '下書きを利用しない')
     ]]) ?>
-    <?php echo $this->BcAdminForm->error('meta.CuCcBurgerEditor.editor_use_draft') ?>
-
-    <?php echo $this->BcAdminForm->label('meta.BcCcRelated.filter_name', __d('baser_core', '下書きフィールド名')) ?>&nbsp;&nbsp;
-    <?php echo $this->BcAdminForm->control('meta.CuCcBurgerEditor.editor_draft_field', ['type' => 'text']) ?>
     <i class="bca-icon--question-circle bca-help"></i>　
     <div class="bca-helptext">
-      <?php echo __d('baser_core', '下書きを利用する場合は、別途保存用のフィールドを作成し、そのフィールド名をここに入力します。') ?>
+      <?php echo __d('baser_core', '下書きを利用する場合は、別途、下書き保存用のフィールドとして現在のフィールド名の後ろに「_draft」を付与したフィールドを作成します。') ?>
     </div>
-    <?php echo $this->BcAdminForm->error('meta.CuCcBurgerEditor.editor_draft_field') ?>
+    <?php echo $this->BcAdminForm->error('meta.CuCcBurgerEditor.editor_use_draft') ?>
   </td>
 </tr>
