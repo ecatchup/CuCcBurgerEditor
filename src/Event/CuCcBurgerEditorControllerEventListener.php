@@ -13,6 +13,7 @@ namespace CuCcBurgerEditor\Event;
 
 use BaserCore\Event\BcControllerEventListener;
 use Cake\Core\Configure;
+use Cake\Core\Plugin;
 use Cake\Event\EventInterface;
 use Cake\ORM\TableRegistry;
 
@@ -35,6 +36,7 @@ class CuCcBurgerEditorControllerEventListener extends BcControllerEventListener
      */
     public function initialize(EventInterface $event)
     {
+        if(!Plugin::isLoaded('BcCustomContent')) return;
         $customFieldsTable = TableRegistry::getTableLocator()->get('BcCustomContent.CustomFields');
         $customFields = $customFieldsTable->find()->where([
             'type' => 'CuCcBurgerEditor',
