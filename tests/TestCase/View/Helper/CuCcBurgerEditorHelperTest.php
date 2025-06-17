@@ -57,7 +57,7 @@ class CuCcBurgerEditorHelperTest extends BcTestCase
     {
         // previewオプションがtrueの場合
         $field = (object)[
-            'name' => 'test',
+            'name' => 'test_field',
             'custom_field' => (object)[
                 'meta' => [
                     'CuCcBurgerEditor' => [
@@ -70,16 +70,6 @@ class CuCcBurgerEditorHelperTest extends BcTestCase
         $this->assertSame('', $result, 'previewオプションがtrueなら空文字を返す');
 
         // previewオプションがない場合
-        $field = (object)[
-            'name' => 'test_field',
-            'custom_field' => (object)[
-                'meta' => [
-                    'CuCcBurgerEditor' => [
-                        'editor_use_draft' => true
-                    ]
-                ]
-            ]
-        ];
         $options = [];
         $expected = '<div>editor</div>';
         $this->BcAdminForm->expects($this->once())
