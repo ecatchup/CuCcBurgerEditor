@@ -13,38 +13,38 @@ use BaserCore\TestSuite\BcTestCase;
 use BaserCore\Utility\BcUtil;
 use Cake\View\View;
 use CuCcBurgerEditor\View\Helper\CuCcBurgerEditorHelper;
-use PHPUnit\Framework\MockObject\MockObject;
+
 /**
  * CuCcBurgerEditorHelper Test Case
  * @property CuCcBurgerEditorHelper $CuCcBurgerEditorHelper
  */
 class CuCcBurgerEditorHelperTest extends BcTestCase
 {
+
     /**
      * @var CuCcBurgerEditorHelper
      */
     public $CuCcBurgerEditorHelper;
 
     /**
-     * @var MockObject
+     * setUp method
+     * @return void
      */
-    public $BcAdminForm;
-
     public function setUp(): void
     {
         parent::setUp();
-        $this->loadPlugins(['CuCcBurgerEditor']);
-        $view = new View();
-        $this->BcAdminForm = $this->getMockBuilder(\stdClass::class)
-            ->addMethods(['editor'])
-            ->getMock();
+        $this->loadPlugins(['CuCcBurgerEditor', 'BurgerEditor']);
+        $view = new View($this->getRequest());
         $this->CuCcBurgerEditorHelper = new CuCcBurgerEditorHelper($view);
-        $this->CuCcBurgerEditorHelper->BcAdminForm = $this->BcAdminForm;
     }
 
-     public static function setUpBeforeClass(): void
+    /**
+     * setUpBeforeClass method
+     * @return void
+     */
+    public static function setUpBeforeClass(): void
     {
-        BcUtil::includePluginClass('CuCcBurgerEditor');
+        BcUtil::includePluginClass(['CuCcBurgerEditor', 'BurgerEditor']);
     }
 
     /**
@@ -69,18 +69,19 @@ class CuCcBurgerEditorHelperTest extends BcTestCase
         $result = $this->CuCcBurgerEditorHelper->control($field, ['preview' => true]);
         $this->assertSame('', $result, 'previewオプションがtrueなら空文字を返す');
 
-        // previewオプションがない場合
+        // 下書きがある場合
         $options = [];
-        $expected = '<div>editor</div>';
-        $this->BcAdminForm->expects($this->once())
-            ->method('editor')
-            ->with(
-                $this->equalTo('test_field'),
-                $this->arrayHasKey('editor')
-            )
-            ->willReturn($expected);
+        ob_start();
         $result = $this->CuCcBurgerEditorHelper->control($field, $options);
-        $this->assertSame($expected, $result, 'previewオプションがなければeditorの戻り値を返す');
+        ob_end_clean();
+        $this->assertStringContainsString('<div class="draft-btn clearfix">', $result, 'previewオプションがなければeditorの戻り値を返す');
+
+        // 下書きがない場合
+        $field->custom_field->meta['CuCcBurgerEditor']['editor_use_draft'] = false;
+        ob_start();
+        $result = $this->CuCcBurgerEditorHelper->control($field, $options);
+        ob_end_clean();
+        $this->assertStringNotContainsString('<div class="draft-btn clearfix" style="display:none;">', $result);
     }
 
     /**
@@ -95,4 +96,5 @@ class CuCcBurgerEditorHelperTest extends BcTestCase
         $result = $this->CuCcBurgerEditorHelper->get($fieldValue, $link);
         $this->assertSame($fieldValue, $result, 'fieldValueをそのまま返す');
     }
+
 }
